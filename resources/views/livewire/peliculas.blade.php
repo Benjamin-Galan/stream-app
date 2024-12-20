@@ -1,0 +1,77 @@
+<!-- Movies and Series List -->
+<div class="mt-8">
+    <!-- Botón para mostrar el formulario -->
+    <button wire:click="toggleForm" class="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
+        Agregar Nueva Película
+    </button>
+
+    <!-- Formulario para agregar/editar película -->
+    @if($isFormVisible)
+        <form wire:submit.prevent="savePelicula" class="mt-6 space-y-4">
+            <div class="flex flex-col">
+                <label for="titulo" class="text-gray-700 font-medium">Título</label>
+                <input type="text" wire:model="titulo" id="titulo" class="mt-2 text-gray-700 p-2 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="descripcion" class="text-gray-700 font-medium">Descripción</label>
+                <textarea wire:model="descripcion" id="descripcion" class="mt-2 text-gray-700 p-2 border border-gray-300 rounded-md" required></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="imagen_url" class="text-gray-700 font-medium">URL de la Imagen</label>
+                <input type="text" wire:model="imagen_url" id="imagen_url" class="mt-2 text-gray-700 p-2 border border-gray-300 rounded-md" required>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="categoria" class="text-gray-700 font-medium">Categoría</label>
+                <select wire:model="categoria_id" id="categoria" class="mt-2 text-gray-700 p-2 border border-gray-300 rounded-md" required>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                    @if($pelicula_id) Actualizar Película @else Guardar Película @endif
+                </button>
+            </div>
+        </form>
+    @endif
+    
+    <div class="mt-4">
+        <div class="p-6 bg-white rounded-md shadow-md">
+            <h2 class="text-lg text-gray-700 font-medium">Lista de Peliculas</h2>
+            <div class="overflow-x-auto mt-6">
+                <table class="w-full whitespace-nowrap">
+                    <thead>
+                        <tr class="text-left font-bold">
+                            <th class="px-6 py-3 bg-gray-500">Título</th>
+                            <th class="px-6 py-3 bg-gray-500">Imagen</th>
+                            <th class="px-6 py-3 bg-gray-500">Descripción</th>
+                            <th class="px-6 py-3 bg-gray-500">Género</th>
+                            <th class="px-6 py-3 bg-gray-500">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($peliculas as $pelicula)
+                        <tr>
+                            <td class="px-6 py-4 text-gray-900">{{$pelicula->titulo}}</td>
+                            <td class="px-6 py-4 text-gray-900"><img src="{{$pelicula->imagen_url}}" class="w-10" alt=""></td>
+                            <td class="px-6 py-4 text-gray-900">{{$pelicula->descripcion}}</td>
+                            <td class="px-6 py-4 text-gray-900">{{$pelicula->categoria->nombre}}</td>
+                            <td class="px-6 py-4 text-gray-900">
+                                <button wire:click="editPelicula({{ $pelicula->id }})"
+                                    class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-2">Editar</button>
+                                <button wire:click="deletePelicula({{ $pelicula->id }})"
+                                    class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Eliminar</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
