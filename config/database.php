@@ -84,13 +84,19 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),  // Usa solo esta variable
+            'url' => env('DATABASE_URL'), // Usa solo esta variable para la URL completa
+            'host' => env('DB_HOST', '127.0.0.1'), // Este valor debería ser ignorado si usas `DATABASE_URL`
+            'port' => env('DB_PORT', '5432'), // También ignorado si usas `DATABASE_URL`
+            'database' => env('DB_DATABASE', 'forge'), // Igual
+            'username' => env('DB_USERNAME', 'forge'), // Igual
+            'password' => env('DB_PASSWORD', ''), // Igual
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => 'require',  // Usar "require" para conexión segura con Supabase
+            'sslmode' => 'require', // Importante para la conexión segura con Supabase
         ],
+
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
