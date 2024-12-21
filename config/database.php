@@ -83,7 +83,7 @@ return [
         ],
 
         'pgsql' => [
-            'driver' => 'pgsql',
+            'driver' => 'pgsql', // Cambia el driver a `pgsql`
             'url' => env('DATABASE_URL'), // Usa solo esta variable para la URL completa
             'host' => env('DB_HOST', '127.0.0.1'), // Este valor debería ser ignorado si usas `DATABASE_URL`
             'port' => env('DB_PORT', '5432'), // También ignorado si usas `DATABASE_URL`
