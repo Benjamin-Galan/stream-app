@@ -94,7 +94,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => 'require', // Importante para la conexión segura con Supabase
+            'sslmode' => 'prefer', // Importante para la conexión segura con Supabase
         ],
 
 
